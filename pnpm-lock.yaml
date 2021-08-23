@@ -8,12 +8,12 @@ specifiers:
   vite-plugin-solid: ^2.0.1
 
 dependencies:
-  solid-js: 1.0.7
-  solid-styled-components: 0.27.2_solid-js@1.0.7
+  solid-js: 1.1.1
+  solid-styled-components: 0.27.2_solid-js@1.1.1
 
 devDependencies:
   prettier: 2.3.2
-  vite: 2.4.4
+  vite: 2.5.0
   vite-plugin-solid: 2.0.1
 
 packages:
@@ -553,6 +553,11 @@ packages:
 
   /solid-js/1.0.7:
     resolution: {integrity: sha512-2jHCXLwp/B7P4kh5tl0ospRaC2F++BU0uWwtfgK/8Zc/MROOyCmmkjHpLAQC2u2NWYVGnIclDIJ2FGDXJ0wcYg==}
+    dev: true
+
+  /solid-js/1.1.1:
+    resolution: {integrity: sha512-BtNNMUjBGtkx4viW5q/oqU4DOHa3WRhylN302cVVIeiBUGw6uzAE+NhNF12bAvSYJOCHLyGHpUEIeWklkeGgsg==}
+    dev: false
 
   /solid-refresh/0.2.2_solid-js@1.0.7:
     resolution: {integrity: sha512-oQN3pUJ8fBd4ldMxZVqK7S4PGzAn1yx1B5bRRfANoxoqmHyY2QLfzrOzXsYnAkhh272K+W24oKgFWlmdUZ6HtQ==}
@@ -562,14 +567,14 @@ packages:
       solid-js: 1.0.7
     dev: true
 
-  /solid-styled-components/0.27.2_solid-js@1.0.7:
+  /solid-styled-components/0.27.2_solid-js@1.1.1:
     resolution: {integrity: sha512-dnTVRg96uL4TE3xCaJzLdITJDRlx7DdRH8sOOp/Ikm5pPgpzilIlLUB2T6wejoNKKMBNqOq16KY00mRNPtG9sg==}
     peerDependencies:
       solid-js: ^1.0.0
     dependencies:
       csstype: 2.6.17
       goober: 2.0.41_csstype@2.6.17
-      solid-js: 1.0.7
+      solid-js: 1.1.1
     dev: false
 
   /source-map-js/0.6.2:
@@ -615,6 +620,19 @@ packages:
   /vite/2.4.4:
     resolution: {integrity: sha512-m1wK6pFJKmaYA6AeZIUXyiAgUAAJzVXhIMYCdZUpCaFMGps0v0IlNJtbmPvkUhVEyautalajmnW5X6NboUPsnw==}
     engines: {node: '>=12.0.0'}
+    hasBin: true
+    dependencies:
+      esbuild: 0.12.17
+      postcss: 8.3.6
+      resolve: 1.20.0
+      rollup: 2.55.1
+    optionalDependencies:
+      fsevents: 2.3.2
+    dev: true
+
+  /vite/2.5.0:
+    resolution: {integrity: sha512-Dn4B+g54PJsMG5WCc4QeFy1ygMXRdTtFrUPegqfk4+vzVQcbF/DqqmI/1bxezArzbujBJg/67QeT5wz8edfJVQ==}
+    engines: {node: '>=12.2.0'}
     hasBin: true
     dependencies:
       esbuild: 0.12.17

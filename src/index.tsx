@@ -4,7 +4,7 @@ import App from './App';
 
 const Global = createGlobalStyles`
 	* {
-		font-family: circular;
+		font-family: 'Montserrat', sans-serif;
 		box-sizing: border-box;
 		color: white;
 	}
