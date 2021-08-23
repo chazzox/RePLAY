@@ -4,7 +4,7 @@
 	"description": "",
 	"scripts": {
 		"start": "vite",
-		"build": "vite build",
+		"build": "vite build --base=/replay",
 		"serve": "vite preview",
 		"format": "prettier --write \"src/**/*.{js,jsx,ts,tsx}\""
 	},
