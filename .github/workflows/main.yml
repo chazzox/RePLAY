@@ -9,15 +9,14 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v2
-            - name: Use Node.js
-              uses: actions/setup-node@v2
+            - name: Setting up pnpm
+              uses: pnpm/action-setup@v2.0.1
               with:
-                  node-version: '16'
-            - name: Install dependencies
-              run: pnpm i
-            - name: Build
+                  version: 6.0.2
+                  run_install: true
+            - name: Building Project
               run: pnpm build
-            - name: Deploy
+            - name: Deploying site
               uses: peaceiris/actions-gh-pages@v3
               with:
                   github_token: ${{ secrets.ACCESS_TOKEN }}
