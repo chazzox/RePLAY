@@ -16,6 +16,9 @@ jobs:
                   run_install: true
             - name: Building Project
               run: pnpm build
+              env:
+                  VITE_API_TOKEN: ${{ secrets.VITE_API_TOKEN }}
+                  VITE_REDIRECT_URI: ${{ secrets.VITE_REDIRECT_URI }}
             - name: Deploying site
               uses: peaceiris/actions-gh-pages@v3
               with:
