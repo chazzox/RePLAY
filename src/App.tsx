@@ -22,7 +22,17 @@ const App: Component = () => {
 			window.location.hash = '';
 		}
 	});
-	return <ContentContainer>{accessToken() === '' ? <Login /> : <Backup token={accessToken()} />}</ContentContainer>;
+	return (
+		<>
+			{accessToken() === '' ? (
+				<ContentContainer>
+					<Login />
+				</ContentContainer>
+			) : (
+				<Backup token={accessToken()} />
+			)}
+		</>
+	);
 };
 
 export default App;
