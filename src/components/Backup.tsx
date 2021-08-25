@@ -3,18 +3,78 @@ import { createSignal } from 'solid-js';
 import { styled } from 'solid-styled-components';
 import { MainBox } from './styled';
 
-async function backup(token: string, name) {
-	// create new playlist with name and description
-	// fetch all playlists and filter for new one
-	// get new playlist
-	// get discover weekly playlists
-	// add all songs from discover weekly to the new playlist
+async function getUserId(token: string) {
+	const result = await fetch('https://api.spotify.com/v1/me', {
+		method: 'GET',
+		headers: { Authorization: 'Bearer ' + token }
+	});
+	const jsonResponse = await result.json();
+	return jsonResponse.id;
 }
 
-function getPlaylistByName() {}
-async function fetchAllPlaylists(token: string) {}
-async function createNewPlaylist(token: string) {}
-async function addSongToPlaylist(token: string) {}
+async function createNewPlaylist(token: string, userId: string, name: string) {
+	const result = await fetch(`https://api.spotify.com/v1/users/${userId}/playlists`, {
+		method: 'POST',
+		headers: { Authorization: 'Bearer ' + token },
+		body: JSON.stringify({ name: name, description: 'New playlist description', public: false })
+	});
+	const jsonResponse = await result.json();
+	return jsonResponse.id;
+}
+
+async function getPlaylistByName(token, name) {
+	const userPlaylists = await fetchAllPlaylists(token);
+	for (const item in userPlaylists) {
+		if (userPlaylists[item].name === name) {
+			console.log(userPlaylists[item]);
+			return userPlaylists[item];
+		} else console.log(userPlaylists[item].name, name);
+	}
+}
+
+async function fetchAllPlaylists(token: string) {
+	const res = await fetch('https://api.spotify.com/v1/me/playlists?limit=50', {
+		method: 'GET',
+		headers: { Authorization: 'Bearer ' + token }
+	});
+	const jsonResponse = await res.json();
+	return jsonResponse.items;
+}
+
+async function getTrackList(token: string, url: string) {
+	const res = await fetch(url, {
+		method: 'GET',
+		headers: { Authorization: 'Bearer ' + token }
+	});
+	const jsonResponse = await res.json();
+	return jsonResponse.items;
+}
+
+async function addSongs(token: string, playlistId: string, songs: string[]) {
+	const requestUrl = new URL(`https://api.spotify.com/v1/playlists/${playlistId}/tracks`);
+	requestUrl.searchParams.append('uris', songs.join());
+	fetch(requestUrl.toString(), {
+		method: 'POST',
+		headers: { Authorization: 'Bearer ' + token }
+	});
+}
+
+async function backup(token: string, name: string) {
+	// get userId
+	const userId = await getUserId(token);
+	// create new playlist with name and description, and return Id
+	const newBackup = await createNewPlaylist(token, userId, name);
+	// get discover weekly playlists
+	const discoverWeekly = await getPlaylistByName(token, 'Discover Weekly');
+	// get song list
+	const tracklist = await getTrackList(token, discoverWeekly.tracks.href);
+	// add all songs from discover weekly to the new playlist
+	addSongs(
+		token,
+		newBackup,
+		tracklist.map((element) => element.track.uri)
+	);
+}
 
 const Input = styled('input')`
 	display: block;
@@ -44,6 +104,8 @@ const Button = styled('button')`
 	}
 `;
 
+const CheckBox = styled('input')``;
+
 const Backup: Component<{ token: string }> = ({ token }) => {
 	const [backupName, setBackupName] = createSignal('');
 
@@ -52,15 +114,12 @@ const Backup: Component<{ token: string }> = ({ token }) => {
 			<h1>Save your Discover Weekly</h1>
 			<h2>Name of backup</h2>
 			<form
-				onSubmit={(_form) => {
+				onSubmit={(e) => {
+					e.preventDefault();
 					if (backupName() != '') backup(token, backupName());
 				}}>
-				<Input
-					type="text"
-					required={true}
-					onInput={(e: Event) => setBackupName(e.target.value)}
-					value={backupName()}
-				/>
+				<Input type="text" required={true} onInput={(e) => setBackupName(e.target.value)} value={backupName()} />
+				<CheckBox type="checkbox" />
 				<Button type="submit">Backup Your Discover weekly</Button>
 			</form>
 		</MainBox>
