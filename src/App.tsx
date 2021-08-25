@@ -11,6 +11,7 @@ const ContentContainer = styled('div')`
 	width: 100%;
 	justify-content: center;
 	align-items: center;
+	flex-direction: column;
 `;
 
 const App: Component = () => {
@@ -22,17 +23,7 @@ const App: Component = () => {
 			window.location.hash = '';
 		}
 	});
-	return (
-		<>
-			{accessToken() === '' ? (
-				<ContentContainer>
-					<Login />
-				</ContentContainer>
-			) : (
-				<Backup token={accessToken()} />
-			)}
-		</>
-	);
+	return <ContentContainer>{accessToken() === '' ? <Login /> : <Backup token={accessToken()} />}</ContentContainer>;
 };
 
 export default App;

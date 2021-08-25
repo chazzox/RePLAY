@@ -1,65 +1,69 @@
 import type { Component } from 'solid-js';
-import { onMount, createSignal, createEffect } from 'solid-js';
+import { createSignal } from 'solid-js';
 import { styled } from 'solid-styled-components';
+import { MainBox } from './styled';
 
-const Playlist = styled('div')`
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	& > img {
-		height: 150px;
-	}
+async function backup(token: string, name) {
+	// create new playlist with name and description
+	// fetch all playlists and filter for new one
+	// get new playlist
+	// get discover weekly playlists
+	// add all songs from discover weekly to the new playlist
+}
+
+function getPlaylistByName() {}
+async function fetchAllPlaylists(token: string) {}
+async function createNewPlaylist(token: string) {}
+async function addSongToPlaylist(token: string) {}
+
+const Input = styled('input')`
+	display: block;
+	margin: 10px auto;
+	background-color: ${(props) => props.theme.black};
+	border: none;
+	padding: 8px;
+	border-radius: 8px;
+	outline: none;
+	font-size: 15px;
 `;
 
-const Song = styled('div')`
-	display: flex;
-	background-color: ${(props) => props.theme.green};
-	padding: 15px;
-	margin: 15px;
+const Button = styled('button')`
+	display: block;
+	margin: auto;
+	font-size: 15px;
+	background-color: white;
+	color: black;
+	border: none;
 	border-radius: 8px;
-	& > img {
-		height: 50px;
-		margin-left: 15px;
+	padding: 8px;
+	transition: background-color 0.2s ease;
+	cursor: pointer;
+	&:hover {
+		color: white;
+		background-color: ${(props) => props.theme.black};
 	}
 `;
 
 const Backup: Component<{ token: string }> = ({ token }) => {
-	const [discoverWeekly, setDiscoverWeekly] = createSignal({ name: '', images: [], id: '' });
-	const [songList, setSongList] = createSignal([]);
-
-	onMount(() => {
-		fetch('https://api.spotify.com/v1/me/playlists', {
-			method: 'GET',
-			headers: { Authorization: 'Bearer ' + token }
-		})
-			.then((req) => req.json())
-			.then((playlists) => setDiscoverWeekly(playlists.items.filter((temp) => temp.name === 'Discover Weekly')[0]));
-	});
-
-	createEffect(() => {
-		discoverWeekly().id !== '' &&
-			fetch(`https://api.spotify.com/v1/playlists/${discoverWeekly().id}/tracks`, {
-				method: 'GET',
-				headers: { Authorization: 'Bearer ' + token }
-			})
-				.then((req) => req.json())
-				.then((songListTemp) => setSongList(songListTemp.items));
-	});
+	const [backupName, setBackupName] = createSignal('');
 
 	return (
-		<div>
-			<Playlist>
-				<h1>{discoverWeekly().name}</h1>
-				{discoverWeekly().images.length > 0 && <img src={discoverWeekly().images[0].url} alt="" />}
-				<p>No. of Songs: {songList().length}</p>
-				{songList().map((song) => (
-					<Song>
-						<p>{song.track.name}</p>
-						<img src={song.track.album.images[0].url} alt="" />
-					</Song>
-				))}
-			</Playlist>
-		</div>
+		<MainBox>
+			<h1>Save your Discover Weekly</h1>
+			<h2>Name of backup</h2>
+			<form
+				onSubmit={(_form) => {
+					if (backupName() != '') backup(token, backupName());
+				}}>
+				<Input
+					type="text"
+					required={true}
+					onInput={(e: Event) => setBackupName(e.target.value)}
+					value={backupName()}
+				/>
+				<Button type="submit">Backup Your Discover weekly</Button>
+			</form>
+		</MainBox>
 	);
 };
 
