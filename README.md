@@ -6,5 +6,4 @@ I have found myself frequently last minute listening to the discover weekly play
 
 - [ ] Fix weird one off cases
 - [ ] Fix Styles
-- [ ] Make refreshable
 - [ ] Persistance (refereshable)
