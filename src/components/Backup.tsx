@@ -24,12 +24,7 @@ async function createNewPlaylist(token: string, userId: string, name: string) {
 
 async function getPlaylistByName(token, name) {
 	const userPlaylists = await fetchAllPlaylists(token);
-	for (const item in userPlaylists) {
-		if (userPlaylists[item].name === name) {
-			console.log(userPlaylists[item]);
-			return userPlaylists[item];
-		} else console.log(userPlaylists[item].name, name);
-	}
+	for (const item in userPlaylists) if (userPlaylists[item].name === name) return userPlaylists[item];
 }
 
 async function fetchAllPlaylists(token: string) {
@@ -108,7 +103,6 @@ const CheckBox = styled('input')``;
 
 const Backup: Component<{ token: string }> = ({ token }) => {
 	const [backupName, setBackupName] = createSignal('');
-
 	return (
 		<MainBox>
 			<h1>Save your Discover Weekly</h1>
@@ -118,8 +112,16 @@ const Backup: Component<{ token: string }> = ({ token }) => {
 					e.preventDefault();
 					if (backupName() != '') backup(token, backupName());
 				}}>
-				<Input type="text" required={true} onInput={(e) => setBackupName(e.target.value)} value={backupName()} />
-				<CheckBox type="checkbox" />
+				<Input
+					type="text"
+					required={true}
+					onInput={(e) => {
+						// @ts-expect-error
+						setBackupName(e.target.value);
+					}}
+					value={backupName()}
+				/>
+				{/* <CheckBox type="checkbox" /> */}
 				<Button type="submit">Backup Your Discover weekly</Button>
 			</form>
 		</MainBox>
