@@ -1,20 +1,5 @@
 import type { Component } from 'solid-js';
-import { styled } from 'solid-styled-components';
-
-import { MainBox } from './styled';
-
-const LoginLink = styled('a')`
-	background-color: white;
-	color: black;
-	text-decoration: none;
-	padding: 8px;
-	border-radius: 8px;
-	transition: background-color 0.2s ease;
-	&:hover {
-		background-color: ${(props) => props.theme.black};
-		color: white;
-	}
-`;
+import { MainBox, LoginLink } from './styled';
 
 function generateAuthURL() {
 	const authURL = new URL('https://accounts.spotify.com/authorize');

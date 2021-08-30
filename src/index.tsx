@@ -1,42 +1,35 @@
 import { render } from 'solid-js/web';
-import { styled, ThemeProvider, createGlobalStyles } from 'solid-styled-components';
+import { ThemeProvider } from 'solid-styled-components';
 import { onMount, createSignal } from 'solid-js';
+import Cookies from 'js-cookie';
 
+import { Global, ContentContainer } from './components/styled';
 import Login from './components/Login';
 import Backup from './components/Backup';
 
-const Global = createGlobalStyles`
-	* {
-		font-family: 'Montserrat', sans-serif;
-		box-sizing: border-box;
-		color: white;
-	}
-	body {
-		margin: 0;
-		padding: 0;
-		background-color: ${(props) => props.theme.black};
-	}
-	html,
-	body,
-	#root {
-		height: 100%;
-	}
-`;
-const ContentContainer = styled('div')`
-	display: flex;
-	height: 100%;
-	width: 100%;
-	justify-content: center;
-	align-items: center;
-	flex-direction: column;
-`;
+interface ReturnType {
+	access_token: string;
+	token_type: 'Bearer';
+	expires_in: string;
+}
 
 render(() => {
 	const [accessToken, setAccessToken] = createSignal('');
 	onMount(() => {
-		const hashObject = Object.fromEntries(new URLSearchParams(document.location.hash.slice(1)).entries());
+		if (document.cookie && window.location.hash === '') {
+			if (parseInt(Cookies.get('expiry')) > Date.now()) {
+				setAccessToken(Cookies.get('access_token'));
+			}
+		}
+
+		const hashObject = Object.fromEntries(
+			new URLSearchParams(document.location.hash.slice(1)).entries()
+		) as unknown as ReturnType;
+
 		if (hashObject.access_token) {
 			setAccessToken(hashObject.access_token);
+			Cookies.set('access_token', hashObject.access_token);
+			Cookies.set('expiry', String(Date.now() + parseInt(hashObject.expires_in) * 1000));
 			window.location.hash = '';
 		}
 	});

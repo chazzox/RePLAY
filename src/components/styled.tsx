@@ -1,4 +1,4 @@
-import { styled } from 'solid-styled-components';
+import { styled, createGlobalStyles } from 'solid-styled-components';
 
 export const MainBox = styled('div')`
 	background-color: ${(props) => props.theme.green};
@@ -6,4 +6,71 @@ export const MainBox = styled('div')`
 	border-radius: 30px;
 	text-align: center;
 	box-shadow: rgba(0, 0, 0, 0.45) 0px 25px 20px -20px;
+`;
+
+export const LoginLink = styled('a')`
+	background-color: white;
+	color: black;
+	text-decoration: none;
+	padding: 8px;
+	border-radius: 8px;
+	transition: background-color 0.2s ease;
+	&:hover {
+		background-color: ${(props) => props.theme.black};
+		color: white;
+	}
+`;
+
+export const Input = styled('input')`
+	display: block;
+	margin: 10px auto;
+	background-color: ${(props) => props.theme.black};
+	border: none;
+	padding: 8px;
+	border-radius: 8px;
+	outline: none;
+	font-size: 15px;
+`;
+
+export const Button = styled('button')`
+	display: block;
+	margin: auto;
+	font-size: 15px;
+	background-color: white;
+	color: black;
+	border: none;
+	border-radius: 8px;
+	padding: 8px;
+	transition: background-color 0.2s ease;
+	cursor: pointer;
+	&:hover {
+		color: white;
+		background-color: ${(props) => props.theme.black};
+	}
+`;
+
+export const Global = createGlobalStyles`
+	* {
+		font-family: 'Montserrat', sans-serif;
+		box-sizing: border-box;
+		color: white;
+	}
+	body {
+		margin: 0;
+		padding: 0;
+		background-color: ${(props) => props.theme.black};
+	}
+	html,
+	body,
+	#root {
+		height: 100%;
+	}
+`;
+export const ContentContainer = styled('div')`
+	display: flex;
+	height: 100%;
+	width: 100%;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
 `;
