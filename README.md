@@ -4,6 +4,6 @@ I have found myself frequently last minute listening to the discover weekly play
 
 ## TODO
 
-- [ ] Fix weird one off cases
+- [ ] Add Error Messages
 - [ ] Fix Styles
-- [ ] Persistance (refereshable)
+- [X] Persistance (refereshable)
