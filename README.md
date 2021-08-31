@@ -10,7 +10,7 @@ I have found myself frequently last minute listening to the discover weekly play
 
 ## Running
 
--   Although it is not required, I recommend you install (pnpm)[https://pnpm.io/] to install packages for this project
+-   Although it is not required, I recommend you install [pnpm](https://pnpm.io/) to install packages for this project
 -   To install run
 
 ```bash
