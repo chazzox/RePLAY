@@ -4,9 +4,10 @@ I have found myself frequently last minute listening to the discover weekly play
 
 ## TODO
 
+-   [x] Persistance (refreshable)
 -   [ ] Add Error Messages
 -   [ ] Fix Styles
--   [x] Persistance (refreshable)
+-   [ ] Better Typescript Definitions
 
 ## Running
 
