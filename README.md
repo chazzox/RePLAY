@@ -4,6 +4,21 @@ I have found myself frequently last minute listening to the discover weekly play
 
 ## TODO
 
-- [ ] Add Error Messages
-- [ ] Fix Styles
-- [X] Persistance (refereshable)
+-   [ ] Add Error Messages
+-   [ ] Fix Styles
+-   [x] Persistance (refreshable)
+
+## Running
+
+-   Although it is not required, I recommend you install (pnpm)[https://pnpm.io/] to install packages for this project
+-   To install run
+
+```bash
+pnpm i
+```
+
+-   Then to start the dev server
+
+```bash
+pnpm start
+```
