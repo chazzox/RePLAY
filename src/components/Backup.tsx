@@ -53,25 +53,26 @@ async function addSongs(token: string, playlistId: string, songs: string[]) {
 	});
 }
 
-async function backup(token: string, name: string) {
-	// get userId
-	const userId = await getUserId(token);
-	// create new playlist with name and description, and return Id
-	const newBackup = await createNewPlaylist(token, userId, name);
-	// get discover weekly playlists
-	const discoverWeekly = await getPlaylistByName(token, 'Discover Weekly');
-	// get song list
-	const tracklist = await getTrackList(token, discoverWeekly.tracks.href);
-	// add all songs from discover weekly to the new playlist
-	addSongs(
-		token,
-		newBackup,
-		tracklist.map((element) => element.track.uri)
-	);
-}
-
 const Backup: Component<{ token: string }> = ({ token }) => {
 	const [backupName, setBackupName] = createSignal('');
+
+	async function backup(token: string, name: string) {
+		// get userId
+		const userId = await getUserId(token);
+		// create new playlist with name and description, and return Id
+		const newBackup = await createNewPlaylist(token, userId, name);
+		// get discover weekly playlists
+		const discoverWeekly = await getPlaylistByName(token, 'Discover Weekly');
+		// get song list
+		const tracklist = await getTrackList(token, discoverWeekly.tracks.href);
+		// add all songs from discover weekly to the new playlist
+		addSongs(
+			token,
+			newBackup,
+			tracklist.map((element) => element.track.uri)
+		);
+	}
+
 	return (
 		<MainBox>
 			<Title>Save your Discover Weekly</Title>

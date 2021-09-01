@@ -5,7 +5,7 @@ export const MainBox = styled('div')`
 	padding: 30px;
 	border-radius: 30px;
 	text-align: center;
-	box-shadow: rgba(0, 0, 0, 0.45) 0px 25px 20px -20px;
+	box-shadow: 0 -2px 10px rgba(0, 0, 0, 1);
 `;
 
 export const LoginLink = styled('a')`
