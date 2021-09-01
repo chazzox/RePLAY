@@ -1,5 +1,6 @@
 import type { Component } from 'solid-js';
-import { MainBox, LoginLink } from './styled';
+
+import { MainBox, LoginLink, Title, Subtitle, Text } from './styled';
 
 function generateAuthURL() {
 	const authURL = new URL('https://accounts.spotify.com/authorize');
@@ -17,8 +18,15 @@ function generateAuthURL() {
 const Login: Component = () => {
 	return (
 		<MainBox>
-			<h1 style="margin-top:1px;">REPLAY</h1>
-			<h3>Sign in to spotify and backup this weeks discover weekly!</h3>
+			<Title>REPLAY</Title>
+			<Subtitle>What is replay?</Subtitle>
+			<Text>• Replay is a a simplistic tools that backups your discover weekly at the press of a button!</Text>
+			<Text>
+				• This can be useful if you find yourself frequently forgetting to listen to the whole of it and the clock is
+				ticking towards midnight on the final day
+			</Text>
+			<Text>• Note: You must be following your discover weekly for this tool to work</Text>
+			<Subtitle>Sign in to spotify and backup this weeks discover weekly!</Subtitle>
 			<LoginLink href={generateAuthURL()}>Login to spotify</LoginLink>
 		</MainBox>
 	);

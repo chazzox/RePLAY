@@ -1,6 +1,6 @@
 import type { Component } from 'solid-js';
 import { createSignal } from 'solid-js';
-import { MainBox, Button, Input } from './styled';
+import { MainBox, Button, Input, Title, Subtitle } from './styled';
 
 async function getUserId(token: string) {
 	const result = await fetch('https://api.spotify.com/v1/me', {
@@ -74,8 +74,8 @@ const Backup: Component<{ token: string }> = ({ token }) => {
 	const [backupName, setBackupName] = createSignal('');
 	return (
 		<MainBox>
-			<h1>Save your Discover Weekly</h1>
-			<h2>Name of backup</h2>
+			<Title>Save your Discover Weekly</Title>
+			<Subtitle>Name of backup</Subtitle>
 			<form
 				onSubmit={(e) => {
 					e.preventDefault();

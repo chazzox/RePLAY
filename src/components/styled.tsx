@@ -9,6 +9,9 @@ export const MainBox = styled('div')`
 `;
 
 export const LoginLink = styled('a')`
+	display: block;
+	width: 40%;
+	margin: auto;
 	background-color: white;
 	color: black;
 	text-decoration: none;
@@ -66,6 +69,7 @@ export const Global = createGlobalStyles`
 		height: 100%;
 	}
 `;
+
 export const ContentContainer = styled('div')`
 	display: flex;
 	height: 100%;
@@ -73,4 +77,23 @@ export const ContentContainer = styled('div')`
 	justify-content: center;
 	align-items: center;
 	flex-direction: column;
+`;
+
+export const Title = styled('h1')`
+	font-weight: 900;
+	padding: 5px;
+	margin: 5px;
+	font-size: 35px;
+`;
+
+export const Subtitle = styled('h3')`
+	font-weight: 600;
+	font-size: 25px;
+	padding: 5px;
+	margin: 5px;
+`;
+
+export const Text = styled('p')`
+	font-weight: 400;
+	margin: 5px;
 `;
