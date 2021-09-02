@@ -6,6 +6,7 @@ specifiers:
   prettier: ^2.3.2
   solid-js: ^1.0.7
   solid-styled-components: ^0.27.2
+  solid-transition-group: ^0.0.8
   vite: ^2.4.4
   vite-plugin-solid: ^2.0.1
 
@@ -13,6 +14,7 @@ dependencies:
   js-cookie: 3.0.0
   solid-js: 1.1.1
   solid-styled-components: 0.27.2_solid-js@1.1.1
+  solid-transition-group: 0.0.8_solid-js@1.1.1
 
 devDependencies:
   '@types/js-cookie': 2.2.7
@@ -587,6 +589,14 @@ packages:
     dependencies:
       csstype: 2.6.17
       goober: 2.0.41_csstype@2.6.17
+      solid-js: 1.1.1
+    dev: false
+
+  /solid-transition-group/0.0.8_solid-js@1.1.1:
+    resolution: {integrity: sha512-5cS/Ircfs/Y0J00oEToL+MWd9V07KgQlw+qRD8kpd6azb2Ri5SjXg/ocqT8U8Wgdx1VQPx45HyopQN+UumkVGQ==}
+    peerDependencies:
+      solid-js: ^1.0.0
+    dependencies:
       solid-js: 1.1.1
     dev: false
 

@@ -1,5 +1,7 @@
 import type { Component } from 'solid-js';
 import { createSignal } from 'solid-js';
+import { styled } from 'solid-styled-components';
+
 import { MainBox, Button, Input, Title, Subtitle } from './styled';
 
 async function getUserId(token: string) {
@@ -47,15 +49,40 @@ async function getTrackList(token: string, url: string) {
 async function addSongs(token: string, playlistId: string, songs: string[]) {
 	const requestUrl = new URL(`https://api.spotify.com/v1/playlists/${playlistId}/tracks`);
 	requestUrl.searchParams.append('uris', songs.join());
-	fetch(requestUrl.toString(), {
+	const response = await fetch(requestUrl.toString(), {
 		method: 'POST',
 		headers: { Authorization: 'Bearer ' + token }
 	});
+	return await response.json();
 }
+
+const Message = styled('div')<{ top: number }>`
+	position: fixed;
+	top: ${(props) => props.top}px;
+	left: 50%;
+	transform: translateX(-50%);
+	padding: 5px;
+	border-radius: 5px;
+`;
+
+const Success = styled(Message)<{ top: number }>`
+	background-color: ${(props) => props.theme.green};
+`;
+
+const Error = styled(Message)`
+	background-color: #ff0000;
+`;
 
 const Backup: Component<{ token: string }> = ({ token }) => {
 	const [backupName, setBackupName] = createSignal('');
+	const [isBackedUp, setIsBackedUp] = createSignal(false);
+	const [backupSuccess, setBackupSuccess] = createSignal<null | boolean>(null);
+	const [top, setTop] = createSignal(15);
 
+	/**
+	 * @todo error detection
+	 * @todo final success message
+	 */
 	async function backup(token: string, name: string) {
 		// get userId
 		const userId = await getUserId(token);
@@ -77,23 +104,28 @@ const Backup: Component<{ token: string }> = ({ token }) => {
 		<MainBox>
 			<Title>Save your Discover Weekly</Title>
 			<Subtitle>Name of backup</Subtitle>
-			<form
-				onSubmit={(e) => {
-					e.preventDefault();
-					if (backupName() != '') backup(token, backupName());
-				}}>
-				<Input
-					type="text"
-					required={true}
-					onInput={(e) => {
-						// @ts-expect-error
-						setBackupName(e.target.value);
-					}}
-					value={backupName()}
-				/>
-				{/* <CheckBox type="checkbox" /> */}
-				<Button type="submit">Backup Your Discover weekly</Button>
-			</form>
+			{isBackedUp ? (
+				<form
+					onSubmit={(e) => {
+						e.preventDefault();
+						if (backupName() != '') backup(token, backupName());
+					}}>
+					<Input
+						type="text"
+						required={true}
+						onInput={(e) => {
+							// @ts-expect-error
+							setBackupName(e.target.value);
+						}}
+						value={backupName()}
+					/>
+					<Button type="submit">Backup Your Discover weekly</Button>
+				</form>
+			) : (
+				<>Test</>
+			)}
+			{backupSuccess() !== false ? <Success top={top()}>Test</Success> : <>Test</>}
+			{/* {backupSuccess() !== null && (backupSuccess() == false ? <Success top={top()}>Test</Success> : <></>)} */}
 		</MainBox>
 	);
 };
