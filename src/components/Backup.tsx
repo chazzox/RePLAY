@@ -1,6 +1,7 @@
 import type { Component } from 'solid-js';
 import { createSignal } from 'solid-js';
-import { styled } from 'solid-styled-components';
+
+import { Error } from './styled';
 
 import { MainBox, Button, Input, Title, Subtitle } from './styled';
 
@@ -26,9 +27,11 @@ async function createNewPlaylist(token: string, userId: string, name: string) {
 async function getPlaylistByName(token, name) {
 	const userPlaylists = await fetchAllPlaylists(token);
 	for (const item in userPlaylists) if (userPlaylists[item].name === name) return userPlaylists[item];
+	return '';
 }
 
 async function fetchAllPlaylists(token: string) {
+	/** @todo: there is a possibility that the user will have more then 50 playlists */
 	const res = await fetch('https://api.spotify.com/v1/me/playlists?limit=50', {
 		method: 'GET',
 		headers: { Authorization: 'Bearer ' + token }
@@ -56,76 +59,76 @@ async function addSongs(token: string, playlistId: string, songs: string[]) {
 	return await response.json();
 }
 
-const Message = styled('div')<{ top: number }>`
-	position: fixed;
-	top: ${(props) => props.top}px;
-	left: 50%;
-	transform: translateX(-50%);
-	padding: 5px;
-	border-radius: 5px;
-`;
-
-const Success = styled(Message)<{ top: number }>`
-	background-color: ${(props) => props.theme.green};
-`;
-
-const Error = styled(Message)`
-	background-color: #ff0000;
-`;
-
 const Backup: Component<{ token: string }> = ({ token }) => {
 	const [backupName, setBackupName] = createSignal('');
-	const [isBackedUp, setIsBackedUp] = createSignal(false);
-	const [backupSuccess, setBackupSuccess] = createSignal<null | boolean>(null);
-	const [top, setTop] = createSignal(15);
+	const [backupSuccess, setBackupSuccess] = createSignal<boolean>(false);
+	const [error, setError] = createSignal('');
+
+	const SetError = (errorString: string) => {
+		setError(errorString);
+		setTimeout(() => {
+			setError('');
+		}, 2000);
+	};
 
 	/**
 	 * @todo error detection
-	 * @todo final success message
 	 */
 	async function backup(token: string, name: string) {
 		// get userId
 		const userId = await getUserId(token);
+
 		// create new playlist with name and description, and return Id
 		const newBackup = await createNewPlaylist(token, userId, name);
+
 		// get discover weekly playlists
 		const discoverWeekly = await getPlaylistByName(token, 'Discover Weekly');
+		if (discoverWeekly === '') {
+			SetError('Could not find discover weekly playlist');
+			return 1;
+		}
+
 		// get song list
 		const tracklist = await getTrackList(token, discoverWeekly.tracks.href);
+
 		// add all songs from discover weekly to the new playlist
-		addSongs(
+		const addSongResponse = await addSongs(
 			token,
 			newBackup,
 			tracklist.map((element) => element.track.uri)
 		);
+		if ('snapshot_id' in addSongResponse) {
+			setBackupSuccess(true);
+		}
 	}
 
 	return (
 		<MainBox>
 			<Title>Save your Discover Weekly</Title>
-			<Subtitle>Name of backup</Subtitle>
-			{isBackedUp ? (
-				<form
-					onSubmit={(e) => {
-						e.preventDefault();
-						if (backupName() != '') backup(token, backupName());
-					}}>
-					<Input
-						type="text"
-						required={true}
-						onInput={(e) => {
-							// @ts-expect-error
-							setBackupName(e.target.value);
-						}}
-						value={backupName()}
-					/>
-					<Button type="submit">Backup Your Discover weekly</Button>
-				</form>
+			{!backupSuccess() ? (
+				<>
+					<Subtitle>Name of backup</Subtitle>
+					<form
+						onSubmit={(e) => {
+							e.preventDefault();
+							if (backupName() != '') backup(token, backupName());
+						}}>
+						<Input
+							type="text"
+							required={true}
+							onInput={(e) => {
+								// @ts-expect-error
+								setBackupName(e.target.value);
+							}}
+							value={backupName()}
+						/>
+						<Button type="submit">Backup Your Discover weekly</Button>
+					</form>
+				</>
 			) : (
-				<>Test</>
+				<Subtitle>Discover weekly has been saved</Subtitle>
 			)}
-			{backupSuccess() !== false ? <Success top={top()}>Test</Success> : <>Test</>}
-			{/* {backupSuccess() !== null && (backupSuccess() == false ? <Success top={top()}>Test</Success> : <></>)} */}
+			{error() !== '' && <Error>{error()}</Error>}
 		</MainBox>
 	);
 };

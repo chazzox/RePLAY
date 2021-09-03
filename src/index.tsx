@@ -34,7 +34,14 @@ render(() => {
 		}
 	});
 	return (
-		<ThemeProvider theme={{ black: '#191414', green: '#1db954' }}>
+		<ThemeProvider
+			theme={{
+				black: '#121212',
+				green: '#1db954',
+				secondaryGreen: '#15883e',
+				white: '#ffffff',
+				secondaryBlack: '#181818'
+			}}>
 			<Global />
 			<ContentContainer>{accessToken() === '' ? <Login /> : <Backup token={accessToken()} />}</ContentContainer>
 		</ThemeProvider>
