@@ -132,6 +132,6 @@ export const Message = styled('div')`
 	opacity: 0;
 `;
 
-export const Error = styled(Message)`
+export const ErrorBox = styled(Message)`
 	background-color: #cc1a2b;
 `;

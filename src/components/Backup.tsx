@@ -1,15 +1,16 @@
 import type { Component } from 'solid-js';
 import { createSignal } from 'solid-js';
 
-import { Error } from './styled';
+const statusCodeSuccess = [200, 201];
 
-import { MainBox, Button, Input, Title, Subtitle } from './styled';
+import { MainBox, Button, Input, Title, Subtitle, ErrorBox } from './styled';
 
 async function getUserId(token: string) {
 	const result = await fetch('https://api.spotify.com/v1/me', {
 		method: 'GET',
 		headers: { Authorization: 'Bearer ' + token }
 	});
+	if (!statusCodeSuccess.includes(result.status)) throw Error('Creating new playlist was unsuccessful');
 	const jsonResponse = await result.json();
 	return jsonResponse.id;
 }
@@ -20,6 +21,7 @@ async function createNewPlaylist(token: string, userId: string, name: string) {
 		headers: { Authorization: 'Bearer ' + token },
 		body: JSON.stringify({ name: name, description: 'New playlist description', public: false })
 	});
+	if (!statusCodeSuccess.includes(result.status)) throw Error('Creating new playlist was unsuccessful');
 	const jsonResponse = await result.json();
 	return jsonResponse.id;
 }
@@ -27,7 +29,7 @@ async function createNewPlaylist(token: string, userId: string, name: string) {
 async function getPlaylistByName(token, name) {
 	const userPlaylists = await fetchAllPlaylists(token);
 	for (const item in userPlaylists) if (userPlaylists[item].name === name) return userPlaylists[item];
-	return '';
+	throw Error('Could not find Discover weekly playlist in followed playlists');
 }
 
 async function fetchAllPlaylists(token: string) {
@@ -36,6 +38,7 @@ async function fetchAllPlaylists(token: string) {
 		method: 'GET',
 		headers: { Authorization: 'Bearer ' + token }
 	});
+	if (!statusCodeSuccess.includes(res.status)) throw Error('Playlist fetch Unsuccessful');
 	const jsonResponse = await res.json();
 	return jsonResponse.items;
 }
@@ -46,6 +49,7 @@ async function getTrackList(token: string, url: string) {
 		headers: { Authorization: 'Bearer ' + token }
 	});
 	const jsonResponse = await res.json();
+	if (!statusCodeSuccess.includes(res.status)) throw Error('Fetching Discover weekly tracklist failed');
 	return jsonResponse.items;
 }
 
@@ -56,7 +60,7 @@ async function addSongs(token: string, playlistId: string, songs: string[]) {
 		method: 'POST',
 		headers: { Authorization: 'Bearer ' + token }
 	});
-	return await response.json();
+	if (!statusCodeSuccess.includes(response.status)) throw Error('Adding songs failed');
 }
 
 const Backup: Component<{ token: string }> = ({ token }) => {
@@ -71,34 +75,25 @@ const Backup: Component<{ token: string }> = ({ token }) => {
 		}, 2000);
 	};
 
-	/**
-	 * @todo error detection
-	 */
 	async function backup(token: string, name: string) {
-		// get userId
-		const userId = await getUserId(token);
-
-		// create new playlist with name and description, and return Id
-		const newBackup = await createNewPlaylist(token, userId, name);
-
-		// get discover weekly playlists
-		const discoverWeekly = await getPlaylistByName(token, 'Discover Weekly');
-		if (discoverWeekly === '') {
-			SetError('Could not find discover weekly playlist');
-			return 1;
-		}
-
-		// get song list
-		const tracklist = await getTrackList(token, discoverWeekly.tracks.href);
-
-		// add all songs from discover weekly to the new playlist
-		const addSongResponse = await addSongs(
-			token,
-			newBackup,
-			tracklist.map((element) => element.track.uri)
-		);
-		if ('snapshot_id' in addSongResponse) {
+		try {
+			// get userId
+			const userId = await getUserId(token);
+			// create new playlist with name and description, and return Id
+			const newBackup = await createNewPlaylist(token, userId, name);
+			// get discover weekly playlists
+			const discoverWeekly = await getPlaylistByName(token, 'Discover Weekly');
+			// get song list
+			const tracklist = await getTrackList(token, discoverWeekly.tracks.href);
+			// add all songs from discover weekly to the new playlist
+			await addSongs(
+				token,
+				newBackup,
+				tracklist.map((element) => element.track.uri)
+			);
 			setBackupSuccess(true);
+		} catch (e) {
+			SetError(e);
 		}
 	}
 
@@ -128,7 +123,7 @@ const Backup: Component<{ token: string }> = ({ token }) => {
 			) : (
 				<Subtitle>Discover weekly has been saved</Subtitle>
 			)}
-			{error() !== '' && <Error>{error()}</Error>}
+			{error() !== '' && <ErrorBox>{error()}</ErrorBox>}
 		</MainBox>
 	);
 };
