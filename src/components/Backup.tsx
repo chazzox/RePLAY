@@ -93,7 +93,7 @@ const Backup: Component<{ token: string }> = ({ token }) => {
 			);
 			setBackupSuccess(true);
 		} catch (e) {
-			SetError(e);
+			SetError(e.toString());
 		}
 	}
 
