@@ -69,10 +69,8 @@ const Backup: Component<{ token: string }> = ({ token }) => {
 	const [error, setError] = createSignal('');
 
 	const SetError = (errorString: string) => {
+		setError('');
 		setError(errorString);
-		setTimeout(() => {
-			setError('');
-		}, 2000);
 	};
 
 	async function backup(token: string, name: string) {
@@ -93,7 +91,7 @@ const Backup: Component<{ token: string }> = ({ token }) => {
 			);
 			setBackupSuccess(true);
 		} catch (e) {
-			SetError(e.toString());
+			SetError(e.message);
 		}
 	}
 
