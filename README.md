@@ -11,8 +11,13 @@ I have found myself frequently last minute listening to the discover weekly play
 
 ## Running
 
--   Although it is not required, I recommend you install [pnpm](https://pnpm.io/) to install packages for this project
--   To install run
+-   Although it is not required, I recommend you install [pnpm](https://pnpm.io/) to install packages for this project if you have a npm installation working then run
+
+```bash
+npm install -g pnpm
+```
+
+-   To install the packages for the project run
 
 ```bash
 pnpm i
