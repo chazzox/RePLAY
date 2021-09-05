@@ -79,12 +79,12 @@ const Backup: Component<{ token: string }> = ({ token }) => {
 		try {
 			// get userId
 			const userId = await getUserId(token);
-			// create new playlist with name and description, and return Id
-			const newBackup = await createNewPlaylist(token, userId, name);
 			// get discover weekly playlists
 			const discoverWeekly = await getPlaylistByName(token, 'Discover Weekly');
 			// get song list
 			const tracklist = await getTrackList(token, discoverWeekly.tracks.href);
+			// create new playlist with name and description, and return Id
+			const newBackup = await createNewPlaylist(token, userId, name);
 			// add all songs from discover weekly to the new playlist
 			await addSongs(
 				token,
