@@ -6,7 +6,7 @@ I have found myself frequently last minute listening to the discover weekly play
 
 -   [x] Persistance (refreshable)
 -   [x] Fix Styles
--   [ ] Add Error Messages
+-   [x] Add Error Messages
 -   [ ] Better Typescript Definitions
 
 ## Running
