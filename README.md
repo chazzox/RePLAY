@@ -4,9 +4,7 @@ I have found myself frequently last minute listening to the discover weekly play
 
 ## TODO
 
--   [x] Persistance (refreshable)
--   [x] Fix Styles
--   [x] Add Error Messages
+-   [ ] Better types
 
 ## Running
 
