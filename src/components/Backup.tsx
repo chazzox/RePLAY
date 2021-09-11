@@ -1,9 +1,9 @@
 import type { Component } from 'solid-js';
 import { createSignal } from 'solid-js';
 
-const statusCodeSuccess = [200, 201];
-
 import { MainBox, Button, Input, Title, Subtitle, ErrorBox } from './styled';
+
+const statusCodeSuccess = [200, 201];
 
 async function getUserId(token: string) {
 	const result = await fetch('https://api.spotify.com/v1/me', {
@@ -11,7 +11,7 @@ async function getUserId(token: string) {
 		headers: { Authorization: 'Bearer ' + token }
 	});
 	if (!statusCodeSuccess.includes(result.status)) throw Error('Creating new playlist was unsuccessful');
-	const jsonResponse = await result.json();
+	const jsonResponse = (await result.json()) as UserInfo;
 	return jsonResponse.id;
 }
 
@@ -22,7 +22,8 @@ async function createNewPlaylist(token: string, userId: string, name: string) {
 		body: JSON.stringify({ name: name, description: 'New playlist description', public: false })
 	});
 	if (!statusCodeSuccess.includes(result.status)) throw Error('Creating new playlist was unsuccessful');
-	const jsonResponse = await result.json();
+	const jsonResponse = (await result.json()) as Playlist;
+
 	return jsonResponse.id;
 }
 
@@ -39,16 +40,18 @@ async function fetchAllPlaylists(token: string) {
 		headers: { Authorization: 'Bearer ' + token }
 	});
 	if (!statusCodeSuccess.includes(res.status)) throw Error('Playlist fetch Unsuccessful');
-	const jsonResponse = await res.json();
+	const jsonResponse = (await res.json()) as AllPlaylists;
 	return jsonResponse.items;
 }
 
 async function getTrackList(token: string, url: string) {
+	// since we know that discover weekly playlists are 30 songs max, there is no need to check if we need to refetch
 	const res = await fetch(url, {
 		method: 'GET',
 		headers: { Authorization: 'Bearer ' + token }
 	});
-	const jsonResponse = await res.json();
+	const jsonResponse = (await res.json()) as Tracklist;
+
 	if (!statusCodeSuccess.includes(res.status)) throw Error('Fetching Discover weekly tracklist failed');
 	return jsonResponse.items;
 }
