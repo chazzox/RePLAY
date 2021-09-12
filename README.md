@@ -1,10 +1,8 @@
 <div align="center"><h1>replay</h1></div>
 
-I have found myself frequently last minute listening to the discover weekly playlist on spotify, wishing for a way to be able to save it easily, this is my solution
+- This project is very close to being 100% completed, if you find a bug feel free to submit an issue to the repo
 
-## TODO
-
--   [ ] Better types
+- I have found myself frequently last minute listening to the discover weekly playlist on spotify, wishing for a way to be able to save it easily, this is my solution
 
 ## Running
 
