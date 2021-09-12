@@ -34,14 +34,21 @@ async function getPlaylistByName(token, name) {
 }
 
 async function fetchAllPlaylists(token: string) {
-	/** @todo: there is a possibility that the user will have more then 50 playlists */
-	const res = await fetch('https://api.spotify.com/v1/me/playlists?limit=50', {
-		method: 'GET',
-		headers: { Authorization: 'Bearer ' + token }
-	});
-	if (!statusCodeSuccess.includes(res.status)) throw Error('Playlist fetch Unsuccessful');
-	const jsonResponse = (await res.json()) as AllPlaylists;
-	return jsonResponse.items;
+	const playlists: Playlist[] = [];
+	let next = 'https://api.spotify.com/v1/me/playlists?limit=50';
+	// fetch until we know that the user has no more playlists
+	while (next) {
+		const res = await fetch(next, {
+			method: 'GET',
+			headers: { Authorization: 'Bearer ' + token }
+		});
+		if (!statusCodeSuccess.includes(res.status)) throw Error('Playlist fetch Unsuccessful');
+		const jsonResponse = (await res.json()) as AllPlaylists;
+		playlists.push(...jsonResponse.items);
+		next = jsonResponse.next;
+	}
+
+	return playlists;
 }
 
 async function getTrackList(token: string, url: string) {
@@ -112,8 +119,8 @@ const Backup: Component<{ token: string }> = ({ token }) => {
 						<Input
 							type="text"
 							required={true}
-							onInput={(e) => {
-								// @ts-expect-error
+							// debouncing is needed
+							onInput={(e: any) => {
 								setBackupName(e.target.value);
 							}}
 							value={backupName()}
