@@ -1,8 +1,8 @@
 <div align="center"><h1>replay</h1></div>
 
-- This project is very close to being 100% completed, if you find a bug feel free to submit an issue to the repo
+-   I have stopped active development on this site, if you encounter a bug please describe it in the issues section of the repo
 
-- I have found myself frequently last minute listening to the discover weekly playlist on spotify, wishing for a way to be able to save it easily, this is my solution
+-   I have found myself frequently last minute listening to the discover weekly playlist on spotify, wishing for a way to be able to save it easily, this is my solution
 
 ## Running
 
