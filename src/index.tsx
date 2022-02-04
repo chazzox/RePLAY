@@ -36,10 +36,11 @@ render(() => {
 	return (
 		<ThemeProvider
 			theme={{
-				black: '#121212',
+				black: '#172228',
 				green: '#1db954',
 				secondaryGreen: '#15883e',
 				white: '#ffffff',
+				offWhite: '#f9f5f2',
 				secondaryBlack: '#181818'
 			}}>
 			<Global />
