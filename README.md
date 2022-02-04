@@ -1,4 +1,4 @@
-<div align="center"><h1>replay</h1></div>
+<div align="center"><h1>RePLAY</h1></div>
 
 -   I have stopped active development on this site, if you encounter a bug please describe it in the issues section of the repo
 
