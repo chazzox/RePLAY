@@ -37,6 +37,7 @@ render(() => {
 		<ThemeProvider
 			theme={{
 				black: '#172228',
+				gray: '#dadae2',
 				green: '#1db954',
 				secondaryGreen: '#15883e',
 				white: '#ffffff',

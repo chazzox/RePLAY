@@ -36,32 +36,38 @@ export const LoginLink = styled('a')`
 export const Input = styled('input')`
 	display: block;
 	margin: 10px auto;
-	background-color: ${(props) => props.theme.black};
 	color: ${(props) => props.theme.black};
-	border: none;
+	border: ${(props) => props.theme.gray} 1px solid;
 	padding: 8px;
 	border-radius: 8px;
 	outline: none;
 	font-size: 15px;
+	margin-bottom: 24px;
+	width: calc(100% - 32px);
 
 	transition: background-color 0.2s ease;
 	&:focus {
-		background-color: ${(props) => props.theme.green};
-		color: ${(props) => props.theme.black};
+		background-color: ${(props) => props.theme.gray};
 	}
 `;
 
 export const Button = styled('button')`
 	display: block;
-	margin: auto;
-	font-size: 15px;
 	background-color: ${(props) => props.theme.green};
 	color: ${(props) => props.theme.white};
-	border: none;
-	border-radius: 8px;
-	padding: 8px;
+	text-decoration: none;
+	padding: 8px 24px;
+	border-radius: 999px;
 	transition: background-color 0.2s ease;
-	cursor: pointer;
+	font-size: 13pt;
+	font-weight: 600;
+	white-space: nowrap;
+	width: calc(100% - 32px);
+	text-align: left;
+	margin-top: 32px;
+	border: none;
+	outline: none;
+	margin: auto;
 	&:hover {
 		background-color: ${(props) => props.theme.secondaryGreen};
 	}
@@ -106,22 +112,39 @@ export const Global = createGlobalStyles`
 		width: 100%;
 	}
 	.backgroundNote {
+		opacity: .33;
 		position: fixed;
 		z-index: -99;
 		width: 30vw;
 		height: 30vw;
-		&:first-of-type {
+		&:nth-of-type(1) {
 			left: 70vw;
 			top: 45vh;
 			transform: rotate(5deg);
 		}
-		&:last-of-type {
+		&:nth-of-type(2) {
 			width: 20vw;
 			height: 20vw;
-			left: 0;
-			top: 5vh;
-			transform: rotate(-2deg);
+			left: -1vw;
+			top: 2vh;
+			transform: rotate(-24deg);
+		}
+		&:nth-of-type(3) {
+			width: 15vw;
+			height: 15vw;
+			left: 17vw;
+			top: 62vh;
+			transform: rotate(-8deg);
 		}	
+	}
+	form {
+		width: calc(100% - 32px);
+
+		#formHeader {
+			text-align: left;
+			margin-left: 16px;
+			margin-top: 24px;
+		}
 	}
 `;
 

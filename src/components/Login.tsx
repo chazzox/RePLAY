@@ -19,6 +19,8 @@ const Login: Component = () => {
 	return (
 		<>
 			<img className="backgroundNote" src="./music-note.png"></img>
+			<img className="backgroundNote" src="./music-note.png"></img>
+			<img className="backgroundNote" src="./music-note.png"></img>
 			<Title>
 				Re<span className="green">PLAY</span>
 			</Title>

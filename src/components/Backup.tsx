@@ -1,7 +1,7 @@
 import type { Component } from 'solid-js';
 import { createSignal } from 'solid-js';
 
-import { MainBox, Button, Input, Title, Subtitle, ErrorBox } from './styled';
+import { MainBox, Button, Input, Title, Text, Subtitle, ErrorBox } from './styled';
 
 const statusCodeSuccess = [200, 201];
 
@@ -106,33 +106,55 @@ const Backup: Component<{ token: string }> = ({ token }) => {
 	}
 
 	return (
-		<MainBox>
-			<Title>Save your Discover Weekly</Title>
-			{!backupSuccess() ? (
-				<>
-					<Subtitle>Name of backup</Subtitle>
-					<form
-						onSubmit={(e) => {
-							e.preventDefault();
-							if (backupName() != '') backup(token, backupName());
-						}}>
-						<Input
-							type="text"
-							required={true}
-							// debouncing is needed
-							onInput={(e: any) => {
-								setBackupName(e.target.value);
-							}}
-							value={backupName()}
-						/>
-						<Button type="submit">Backup Your Discover weekly</Button>
-					</form>
-				</>
-			) : (
-				<Subtitle>Discover weekly has been saved</Subtitle>
-			)}
-			{error() !== '' && <ErrorBox>{error()}</ErrorBox>}
-		</MainBox>
+		<>
+			<img className="backgroundNote" src="./music-note.png"></img>
+			<img className="backgroundNote" src="./music-note.png"></img>
+			<img className="backgroundNote" src="./music-note.png"></img>
+			<Title>
+				Re<span className="green">PLAY</span>
+			</Title>
+			<MainBox>
+				<div id="mainContent">
+					{!backupSuccess() ? (
+						<>
+							<h2>Save your Discover Weekly</h2>
+							<form
+								onSubmit={(e) => {
+									e.preventDefault();
+									if (backupName() != '') backup(token, backupName());
+								}}>
+								<div id="formHeader">Name your Backup:</div>
+								<Input
+									type="text"
+									required={true}
+									placeholder="New Playlist Name"
+									// debouncing is needed
+									onInput={(e: any) => {
+										setBackupName(e.target.value);
+									}}
+									value={backupName()}
+								/>
+								<Button type="submit">Backup Now</Button>
+							</form>
+						</>
+					) : (
+						<>
+							<h2>Success!</h2>
+							<Subtitle>Discover Weekly has been saved</Subtitle>
+						</>
+					)}
+					{error() !== '' && <ErrorBox>{error()}</ErrorBox>}
+				</div>
+				<div id="sidebar">
+					<Subtitle>What is RePLAY?</Subtitle>
+					<Text>Replay is a a simplistic tools that backups your discover weekly at the press of a button!</Text>
+					<Text>
+						For those times you find yourself frequently forgetting to listen to the whole of it and the clock is
+						ticking towards midnight on the final day.
+					</Text>
+				</div>
+			</MainBox>
+		</>
 	);
 };
 
