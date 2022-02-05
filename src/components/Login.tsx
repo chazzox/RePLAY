@@ -1,5 +1,5 @@
 import type { Component } from 'solid-js';
-
+import MusicNote from '../assets/music-note.png';
 import { MainBox, LoginLink, Title, Subtitle, Text } from './styled';
 
 function generateAuthURL() {
@@ -18,9 +18,9 @@ function generateAuthURL() {
 const Login: Component = () => {
 	return (
 		<>
-			<img className="backgroundNote" src="./music-note.png"></img>
-			<img className="backgroundNote" src="./music-note.png"></img>
-			<img className="backgroundNote" src="./music-note.png"></img>
+			<img className="backgroundNote" src={MusicNote}></img>
+			<img className="backgroundNote" src={MusicNote}></img>
+			<img className="backgroundNote" src={MusicNote}></img>
 			<Title>
 				Re<span className="green">PLAY</span>
 			</Title>
