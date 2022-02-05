@@ -15,6 +15,7 @@
 	},
 	"devDependencies": {
 		"@types/js-cookie": "^2.2.7",
+		"@types/node": "^17.0.15",
 		"prettier": "^2.3.2",
 		"vite": "^2.5.3",
 		"vite-plugin-solid": "^2.0.3"

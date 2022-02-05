@@ -3,9 +3,9 @@ import { ThemeProvider } from 'solid-styled-components';
 import { onMount, createSignal } from 'solid-js';
 import Cookies from 'js-cookie';
 
-import { Global, ContentContainer } from './components/styled';
-import Login from './components/Login';
-import Backup from './components/Backup';
+import { Global, ContentContainer } from '../components/styled';
+import Login from '../components/Login';
+import Backup from '../components/Backup';
 
 interface ReturnType {
 	access_token: string;
@@ -30,7 +30,7 @@ render(() => {
 			setAccessToken(hashObject.access_token);
 			Cookies.set('access_token', hashObject.access_token);
 			Cookies.set('expiry', String(Date.now() + parseInt(hashObject.expires_in) * 1000));
-			window.location.hash = '';
+			history.pushState('', document.title, window.location.pathname + window.location.search);
 		}
 	});
 	return (

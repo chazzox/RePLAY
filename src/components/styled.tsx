@@ -68,6 +68,7 @@ export const Button = styled('button')`
 	border: none;
 	outline: none;
 	margin: auto;
+	cursor: pointer;
 	&:hover {
 		background-color: ${(props) => props.theme.secondaryGreen};
 	}
