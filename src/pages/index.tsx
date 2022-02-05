@@ -3,9 +3,11 @@ import { ThemeProvider } from 'solid-styled-components';
 import { onMount, createSignal } from 'solid-js';
 import Cookies from 'js-cookie';
 
-import { Global, ContentContainer } from '../components/styled';
+import { Global, ContentContainer, MainBox, Title, Subtitle, Text } from '../components/styled';
 import Login from '../components/Login';
 import Backup from '../components/Backup';
+
+import MusicNote from '../assets/music-note.png';
 
 interface ReturnType {
 	access_token: string;
@@ -45,7 +47,28 @@ render(() => {
 				secondaryBlack: '#181818'
 			}}>
 			<Global />
-			<ContentContainer>{accessToken() === '' ? <Login /> : <Backup token={accessToken()} />}</ContentContainer>
+			<ContentContainer>
+				<img className="backgroundNote" src={MusicNote}></img>
+				<img className="backgroundNote" src={MusicNote}></img>
+				<img className="backgroundNote" src={MusicNote}></img>
+				<Title>
+					Re<span className="green">PLAY</span>
+				</Title>
+				<MainBox>
+					{accessToken() === '' ? <Login /> : <Backup token={accessToken()} />}
+					<div id="sidebar">
+						<Subtitle>What is RePLAY?</Subtitle>
+						<Text>
+							Replay is a simple tool that lets you backup your discover weekly playlist at the press of a
+							button!
+						</Text>
+						<Text>
+							For those times you find yourself frequently forgetting to listen to the whole of it and the
+							clock is ticking towards midnight on the final day.
+						</Text>
+					</div>
+				</MainBox>
+			</ContentContainer>
 		</ThemeProvider>
 	);
 }, document.getElementById('root'));

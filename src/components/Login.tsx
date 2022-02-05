@@ -17,29 +17,11 @@ function generateAuthURL() {
 
 const Login: Component = () => {
 	return (
-		<>
-			<img className="backgroundNote" src={MusicNote}></img>
-			<img className="backgroundNote" src={MusicNote}></img>
-			<img className="backgroundNote" src={MusicNote}></img>
-			<Title>
-				Re<span className="green">PLAY</span>
-			</Title>
-			<MainBox>
-				<div id="mainContent">
-					<Subtitle>Backup this weeks discover weekly!</Subtitle>
-					<Text>You must be following your discover weekly for this tool to work.</Text>
-					<LoginLink href={generateAuthURL()}>Login to Spotify</LoginLink>
-				</div>
-				<div id="sidebar">
-					<Subtitle>What is RePLAY?</Subtitle>
-					<Text>Replay is a a simplistic tools that backups your discover weekly at the press of a button!</Text>
-					<Text>
-						For those times you find yourself frequently forgetting to listen to the whole of it and the clock is
-						ticking towards midnight on the final day.
-					</Text>
-				</div>
-			</MainBox>
-		</>
+		<div id="mainContent">
+			<Subtitle>Backup this weeks discover weekly!</Subtitle>
+			<Text>You must be following your discover weekly for this tool to work.</Text>
+			<LoginLink href={generateAuthURL()}>Login to Spotify</LoginLink>
+		</div>
 	);
 };
 
