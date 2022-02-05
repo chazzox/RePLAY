@@ -1,5 +1,6 @@
 import type { Component } from 'solid-js';
 import { createSignal } from 'solid-js';
+import MusicNode from '../assets/music-note.png';
 
 import { MainBox, Button, Input, Title, Text, Subtitle, ErrorBox } from './styled';
 
@@ -107,9 +108,9 @@ const Backup: Component<{ token: string }> = ({ token }) => {
 
 	return (
 		<>
-			<img className="backgroundNote" src="./music-note.png"></img>
-			<img className="backgroundNote" src="./music-note.png"></img>
-			<img className="backgroundNote" src="./music-note.png"></img>
+			<img className="backgroundNote" src={MusicNode}></img>
+			<img className="backgroundNote" src={MusicNode}></img>
+			<img className="backgroundNote" src={MusicNode}></img>
 			<Title>
 				Re<span className="green">PLAY</span>
 			</Title>
