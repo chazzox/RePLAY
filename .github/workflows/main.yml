@@ -2,7 +2,7 @@ name: Deploy Master Branch
 on:
     push:
         branches:
-            - master
+            - main
 jobs:
     build:
         name: Build Solid site
