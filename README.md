@@ -21,5 +21,5 @@ pnpm i
 -   Then to start the dev server
 
 ```bash
-pnpm start
+pnpm dev
 ```
