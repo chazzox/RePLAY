@@ -1,13 +1,12 @@
 import type { Component } from 'solid-js';
-import MusicNote from '../assets/music-note.png';
-import { MainBox, LoginLink, Title, Subtitle, Text } from './styled';
+import { LoginLink, Subtitle, Text } from './styled';
 
 function generateAuthURL() {
 	const authURL = new URL('https://accounts.spotify.com/authorize');
 	authURL.searchParams.append('show_dialog', 'true');
 	authURL.searchParams.append('response_type', 'token');
-	authURL.searchParams.append('client_id', import.meta.env.VITE_API_TOKEN);
-	authURL.searchParams.append('redirect_uri', import.meta.env.VITE_REDIRECT_URI);
+	authURL.searchParams.append('client_id', process.env.VITE_API_TOKEN);
+	authURL.searchParams.append('redirect_uri', process.env.VITE_REDIRECT_URI);
 	authURL.searchParams.append(
 		'scope',
 		['playlist-modify-private', 'playlist-read-private', 'playlist-modify-public'].join(' ')
