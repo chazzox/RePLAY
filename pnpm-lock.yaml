@@ -4,6 +4,7 @@ specifiers:
   '@types/js-cookie': ^2.2.7
   '@types/node': ^17.0.15
   js-cookie: ^3.0.1
+  pnpm: ^7.1.2
   prettier: ^2.3.2
   solid-js: ^1.1.2
   solid-styled-components: ^0.27.3
@@ -18,6 +19,7 @@ dependencies:
 devDependencies:
   '@types/js-cookie': 2.2.7
   '@types/node': 17.0.15
+  pnpm: 7.1.2
   prettier: 2.3.2
   vite: 2.5.3
   vite-plugin-solid: 2.0.3
@@ -432,6 +434,7 @@ packages:
     resolution: {integrity: sha512-xiqMQR4xAeHTuB9uWm+fFRcIOgKBMiOBP+eXiyT7jsgVCq1bkVygt00oASowB7EdtpOHaaPgKt812P9ab+DDKA==}
     engines: {node: ^8.16.0 || ^10.6.0 || >=11.0.0}
     os: [darwin]
+    requiresBuild: true
     dev: true
     optional: true
 
@@ -529,6 +532,12 @@ packages:
 
   /path-parse/1.0.7:
     resolution: {integrity: sha512-LDJzPVEEEPR+y48z93A0Ed0yXb8pAByGWo/k5YYdYgpY2/2EsOsksJrq7lOHxryrVOn1ejG6oAp8ahvOIQD8sw==}
+    dev: true
+
+  /pnpm/7.1.2:
+    resolution: {integrity: sha512-nZieltHsIEvr5vGcDM4JchBixUk1Esq+XewDP9RCiPAPxRv5LzDhGujgsrtoETyXBsQ9mclXSPppNr80ya4Rnw==}
+    engines: {node: '>=14.19'}
+    hasBin: true
     dev: true
 
   /postcss/8.3.6:
