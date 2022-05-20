@@ -1,8 +1,7 @@
 import type { Component } from 'solid-js';
 import { createSignal } from 'solid-js';
-import MusicNode from '../assets/music-note.png';
 
-import { MainBox, Button, Input, Title, Text, Subtitle, ErrorBox } from './styled';
+import { Button, Input, Subtitle, ErrorBox } from './styled';
 
 const statusCodeSuccess = [200, 201];
 

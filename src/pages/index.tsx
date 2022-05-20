@@ -17,6 +17,7 @@ interface ReturnType {
 
 render(() => {
 	const [accessToken, setAccessToken] = createSignal('');
+
 	onMount(() => {
 		if (document.cookie && window.location.hash === '') {
 			if (parseInt(Cookies.get('expiry')) > Date.now()) {
@@ -35,6 +36,7 @@ render(() => {
 			history.pushState('', document.title, window.location.pathname + window.location.search);
 		}
 	});
+
 	return (
 		<ThemeProvider
 			theme={{

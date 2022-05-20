@@ -12,6 +12,5 @@ export default defineConfig({
 		target: 'esnext',
 		polyfillDynamicImport: false
 	},
-	base: '/RePLAY/',
 	publicDir: 'public'
 });
