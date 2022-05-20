@@ -5,8 +5,8 @@ function generateAuthURL() {
 	const authURL = new URL('https://accounts.spotify.com/authorize');
 	authURL.searchParams.append('show_dialog', 'true');
 	authURL.searchParams.append('response_type', 'token');
-	authURL.searchParams.append('client_id', process.env.VITE_API_TOKEN);
-	authURL.searchParams.append('redirect_uri', process.env.VITE_REDIRECT_URI);
+	authURL.searchParams.append('client_id', process.env['VITE_API_TOKEN']);
+	authURL.searchParams.append('redirect_uri', process.env['VITE_REDIRECT_URI']);
 	authURL.searchParams.append(
 		'scope',
 		['playlist-modify-private', 'playlist-read-private', 'playlist-modify-public'].join(' ')
