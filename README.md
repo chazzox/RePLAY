@@ -1,4 +1,4 @@
-<div align="center"><h1><a href="https://chazzox.uk/RePLAY/">RePLAY</a></h1></div>
+<div align="center"><h1><a href="https://replay.chazzox.uk/">RePLAY</a></h1></div>
 
 -   I have stopped active development on this site, if you encounter a bug please describe it in the issues section of the repo
 
