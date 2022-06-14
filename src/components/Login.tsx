@@ -6,7 +6,7 @@ function generateAuthURL() {
 	const authURL = new URL('https://accounts.spotify.com/authorize');
 	authURL.searchParams.append('show_dialog', 'true');
 	authURL.searchParams.append('response_type', 'token');
-	authURL.searchParams.append('client_id', import.meta.env.VITE_API_TOKEN);
+	authURL.searchParams.append('client_id', import.meta.env.VITE_CLIENT_ID);
 	authURL.searchParams.append('redirect_uri', import.meta.env.VITE_REDIRECT_URI);
 	authURL.searchParams.append(
 		'scope',
@@ -26,3 +26,4 @@ const Login: Component = () => {
 };
 
 export default Login;
+
